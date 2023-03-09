@@ -2,6 +2,7 @@ const express = require('express');
 const route = express.Router();
 const userController = require('../controller/userController');
 const middleware = require('../middleware/auth')
+
 route.get('/', userController.account);
 
 //log-in function
