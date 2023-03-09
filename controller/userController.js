@@ -1,7 +1,7 @@
-const {request, response} = require("express");
 const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+const { use } = require("../config/route");
 const account = (request, response) => {
     response.render('index',{
         error: null,
@@ -26,16 +26,32 @@ const logIn = async (req, res) => {
                     error: 'password is not correct'
             })
         }else{
+            let newToken = await jwt.sign({user}, 'user token')
+            res.cookie('jwt', newToken)
             redirect('/homePage')
         }
     }
   }
 }
-const signUp = (request, response) => {
+const signUp = async (request, response) => {
+    let existUser = await userModel.findOne({email: request.body.email})
     let newUser = new userModel(request.body);
     newUser.save()
-        .then(() => {
-            console.log(newUser)
+        .then( async () => {
+            if (existUser){
+                response.render('index',{
+                    error: 'Email is already in use!'
+                })
+            } else {
+                if (!request.body.password){
+                    response.render('index',{
+                        error: 'Password is required'
+                    })
+                } else {
+                    let hashedPassword = await bcrypt.hash(request.body.password, 12)
+                }
+            }
+
             response.render('homePage')
         })
         .catch(error => {
