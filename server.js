@@ -1,4 +1,5 @@
 const express = require('express');
+require('./config/mongoose');
 const app = express();
 const route = require('./config/route');
 
