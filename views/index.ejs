@@ -9,10 +9,11 @@
 </head>
 <body>
 <h1>Welcome to Matrix Master Community</h1>
-<form action="/" method="get">
+<section>
+<form action="/log-in" method="post">
     <label for="email">Email</label>
     <br>
-    <input type="text" name="email" id="email">
+    <input type="email" name="email" id="email">
     <br>
     <label for="password">Password</label>
     <br>
@@ -20,20 +21,27 @@
     <br>
     <button>Log In</button>
 </form>
-<form action="/" method="get">
+<form action="/new-account" method="post">
     <label for="username">Username</label>
     <br>
     <input type="text" name="username" id="username">
     <br>
     <label for="email">Email</label>
     <br>
-    <input type="text" name="email" id="email">
+    <input type="email" name="email" id="email">
     <br>
     <label for="password">Password</label>
     <br>
     <input type="text" name="password" id="password">
     <br>
     <button>Log In</button>
+    
 </form>
+
+<% if (error) { %>
+    <h3 class="result"> <%= error %></h3>
+<% } %>
+
+</section>
 </body>
 </html>
