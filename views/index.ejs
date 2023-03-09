@@ -17,14 +17,14 @@
     <br>
     <label for="password">Password</label>
     <br>
-    <input type="text" name="password" id="password">
+    <input type="password" name="password" id="password">
     <br>
     <button>Log In</button>
 </form>
-<form action="/new-account" method="post">
-    <label for="username">Username</label>
+<form action="/signUp" method="post">
+    <label for="userName">Username</label>
     <br>
-    <input type="text" name="username" id="username">
+    <input type="text" name="userName" id="userName">
     <br>
     <label for="email">Email</label>
     <br>
@@ -32,10 +32,12 @@
     <br>
     <label for="password">Password</label>
     <br>
-    <input type="text" name="password" id="password">
+    <input type="password" name="password" id="password">
     <br>
-    <button>Log In</button>
-    
+
+    <button>Log In</button>   
+
+    <button>Sign Up</button>
 </form>
 
 <% if (error) { %>

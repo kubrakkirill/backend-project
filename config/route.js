@@ -7,4 +7,6 @@ route.get('/', userController.account);
 //log-in function
 route.post('/log-in', userController.logIn)
 
+route.post('/signUp', userController.signUp);
+
 module.exports = route;
