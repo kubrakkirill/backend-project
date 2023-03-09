@@ -1,11 +1,11 @@
 const {request, response} = require("express");
 
-const logIn = (request, response) => {
+const account = (request, response) => {
     response.render('index',{
         error: null,
     })
 }
 
 module.exports = {
-    logIn
+    account,
 }
