@@ -15,9 +15,4 @@ route.post('/homepage', userController.signUp);
 //log-in function
 route.post('/log-in', middleware.checkLogIn, userController.logIn)
 
-
-
-module.exports = route;
-
-
 module.exports = route;
