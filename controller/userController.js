@@ -1,8 +1,15 @@
-const {request, response} = require("express");
+
 const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { use } = require("../config/route");
+const { render } = require("ejs");
 
+const account = (request, response) => {
+    response.render('index',{
+        error: null,
+    })
+}
 
 const account = (request, response) => {
     response.render('index',{
@@ -32,6 +39,18 @@ const logIn = async (req, res) => {
             }
         }
     }
+
+                res.render('index',{
+                    error: 'password is not correct'
+            })
+        }else{
+            let newToken = await jwt.sign({user}, 'user token')
+            res.cookie('jwt', newToken)
+            render('homePage')
+        }
+    }
+  }
+ 
 }
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
