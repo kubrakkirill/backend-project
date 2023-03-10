@@ -1,9 +1,18 @@
-const {request, response} = require("express");
 const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+const account = (request, response) => {
+    response.render('homePage',{
+        error: null,
+    })
+}
+const startPage = (request, response) => {
+    response.render('index',{
+        error: null,
+    })
+}
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -21,14 +30,16 @@ const logIn = async (req, res) => {
                 res.render('index',{
                     error: 'password is not correct'
                 })
-            }else{
+            } else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                redirect('/homePage')
+                res.redirect('/homepage')
             }
         }
     }
-}
+
+}          
+
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
     if (existUser){
@@ -52,13 +63,14 @@ const signUp = async (request, response) => {
             .then ( async () => {
                 let newToken = await jwt.sign({newUser}, 'Token')
                 response.cookie('jwt', newToken, {httpOnly: true})
-                response.render('homePage')
+                response.redirect('/homepage')
             })
             .catch ( error => {
                 throw error
             })
     }
 }
+
 
 const logOut = (request, response) => {
     response.clearCookie('jwt');
@@ -68,7 +80,7 @@ const logOut = (request, response) => {
 module.exports = {
     account,
     logIn,
-    logIn,
     signUp,
-    logOut
+    logOut,
+    startPage
 }

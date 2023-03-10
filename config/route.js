@@ -3,16 +3,11 @@ const route = express.Router();
 const userController = require('../controller/userController');
 const middleware = require('../middleware/auth')
 
-route.get('/', userController.account);
-
-//log-in function
-
-route.get('/', userController.logIn);
+route.get('/', userController.startPage);
 route.get('/logOut', userController.logOut);
+route.get('/homepage', userController.account);
 
-route.post('/homepage', userController.signUp);
-
-//log-in function
-route.post('/log-in', middleware.checkLogIn, userController.logIn)
+route.post('/signUp', userController.signUp);
+route.post('/log-in', userController.logIn)
 
 module.exports = route;
