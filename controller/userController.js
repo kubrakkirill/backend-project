@@ -1,14 +1,7 @@
-
 const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
-const account = (request, response) => {
-    response.render('index',{
-        error: null,
-    })
-}
 
 const account = (request, response) => {
     response.render('index',{
@@ -30,16 +23,6 @@ const logIn = async (req, res) => {
         }else{
             let correctPass = await bcrypt.compareSync(req.body.password, user.password)
             if (!correctPass) {
-                res.render('index', {
-
-                    error: 'password is not correct'
-                })
-            } else{
-                res.render('homePage')
-            }
-        }
-    }
-
                 res.render('index',{
                     error: 'password is not correct'
                 })
@@ -50,6 +33,8 @@ const logIn = async (req, res) => {
             }
         }
     }
+
+                
 
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
