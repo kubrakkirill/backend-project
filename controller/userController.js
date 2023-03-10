@@ -10,7 +10,7 @@ const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
     let newUser = new userModel(request.body);
     newUser.save()
-        .then( async () => {
+        .then( () => {
             if (existUser){
                 response.render('index',{
                     error: 'Email is already in use!'
@@ -20,8 +20,6 @@ const signUp = async (request, response) => {
                     response.render('index',{
                         error: 'Password is required'
                     })
-                } else {
-                    let hashedPassword = await bcrypt.hash(request.body.password, 12)
                 }
             }
 
