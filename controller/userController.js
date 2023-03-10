@@ -34,7 +34,7 @@ const logIn = async (req, res) => {
         }
     }
 
-                
+}          
 
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
@@ -66,7 +66,7 @@ const signUp = async (request, response) => {
             })
     }
 }
-}
+
 
 const logOut = (request, response) => {
     response.clearCookie('jwt');
