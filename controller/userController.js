@@ -32,6 +32,7 @@ const logIn = async (req, res) => {
             }
         }
     }
+
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
     if (existUser){
@@ -61,6 +62,7 @@ const signUp = async (request, response) => {
                 throw error
             })
     }
+}
 }
 
 const logOut = (request, response) => {
