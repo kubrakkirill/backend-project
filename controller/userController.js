@@ -2,6 +2,7 @@ const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { use } = require("../config/route");
+const { render } = require("ejs");
 
 const account = (request, response) => {
     response.render('index',{
@@ -29,7 +30,7 @@ const logIn = async (req, res) => {
         }else{
             let newToken = await jwt.sign({user}, 'user token')
             res.cookie('jwt', newToken)
-            redirect('/homePage')
+            render('homePage')
         }
     }
   }
