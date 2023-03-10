@@ -2,6 +2,7 @@ const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const account = (request, response) => {
     response.render('index',{
         error: null,

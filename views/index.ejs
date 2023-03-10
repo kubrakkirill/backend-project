@@ -9,7 +9,8 @@
 </head>
 <body>
 <h1>Welcome to Matrix Master Community</h1>
-<section>
+
+
 <form action="/log-in" method="post">
     <label for="email">Email</label>
     <br>
@@ -21,7 +22,7 @@
     <br>
     <button>Log In</button>
 </form>
-<form action="/signUp" method="post">
+<form action="/homepage" method="post">
     <label for="userName">Username</label>
     <br>
     <input type="text" name="userName" id="userName">
@@ -33,10 +34,7 @@
     <label for="password">Password</label>
     <br>
     <input type="password" name="password" id="password">
-    <br>
-
-    <button>Log In</button>   
-
+    <br>    
     <button>Sign Up</button>
 </form>
 
@@ -44,6 +42,5 @@
     <h3 class="result"> <%= error %></h3>
 <% } %>
 
-</section>
 </body>
 </html>
