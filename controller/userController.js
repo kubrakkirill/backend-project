@@ -24,14 +24,14 @@ const logIn = async (req, res) => {
         }else{
             let correctPass = await bcrypt.compareSync(req.body.password, user.password)
             if (!correctPass) {
-                res.render('index',{
+                res.render('index', {
                     error: 'password is not correct'
-            })
-        }else{
-            redirect('/homePage')
+                })
+            } else{
+                res.render('homePage')
+            }
         }
     }
-  }
 }
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
@@ -71,7 +71,6 @@ const logOut = (request, response) => {
 
 module.exports = {
     account,
-    logIn,
     logIn,
     signUp,
     logOut
