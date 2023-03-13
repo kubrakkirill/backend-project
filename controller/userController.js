@@ -1,8 +1,14 @@
-const {request, response} = require("express");
+
 const userModel = require("../models/userModel");
+const questionModel = require('../models/questionModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const account = (request, response) => {
+    response.render('index',{
+        error: null,
+    })
+}
 
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
@@ -21,14 +27,17 @@ const logIn = async (req, res) => {
                 res.render('index',{
                     error: 'password is not correct'
                 })
-            }else{
+            } else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                redirect('/homePage')
+                res.render('homePage')
             }
         }
     }
-}
+
+}          
+
+
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
     if (existUser){
@@ -36,9 +45,9 @@ const signUp = async (request, response) => {
             error: 'This email is already in use!'
         })
     } else {
-        if (!request.body.password){
+        if (!request.body.email || !request.body.password){
             response.render('index', {
-                error: 'Password is require!'
+                error: 'email and password are required'
             })
         } else {
             var hashedPassword = await bcrypt.hashSync(request.body.password, 12)
@@ -60,15 +69,25 @@ const signUp = async (request, response) => {
     }
 }
 
+
 const logOut = (request, response) => {
     response.clearCookie('jwt');
     response.redirect('/')
 }
+
+//add new function
+const addNew = (req,res) =>{
+    questionModel.find()
+    .then(result => {res.render('addQuestion', {users : result})})
+    .catch(err => console.log(err))
+    
+};
 
 module.exports = {
     account,
     logIn,
     logIn,
     signUp,
-    logOut
+    logOut,
+    addNew,
 }
