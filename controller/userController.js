@@ -1,7 +1,14 @@
+
 const userModel = require("../models/userModel");
+const questionModel = require('../models/questionModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const account = (request, response) => {
+    response.render('index',{
+        error: null,
+    })
+}
 
 const account = (request, response) => {
     response.render('homePage',{
@@ -34,11 +41,13 @@ const logIn = async (req, res) => {
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
                 res.redirect('/homepage')
+
             }
         }
     }
 
 }          
+
 
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
@@ -47,9 +56,9 @@ const signUp = async (request, response) => {
             error: 'This email is already in use!'
         })
     } else {
-        if (!request.body.password){
+        if (!request.body.email || !request.body.password){
             response.render('index', {
-                error: 'Password is require!'
+                error: 'email and password are required'
             })
         } else {
             var hashedPassword = await bcrypt.hashSync(request.body.password, 12)
@@ -77,10 +86,19 @@ const logOut = (request, response) => {
     response.redirect('/')
 }
 
+//add new function
+const addNew = (req,res) =>{
+    questionModel.find()
+    .then(result => {res.render('addQuestion', {users : result})})
+    .catch(err => console.log(err))
+    
+};
+
 module.exports = {
     account,
     logIn,
     signUp,
     logOut,
     startPage
+    addNew,
 }
