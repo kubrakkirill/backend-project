@@ -4,11 +4,6 @@ const questionModel = require('../models/questionModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const account = (request, response) => {
-    response.render('index',{
-        error: null,
-    })
-}
 
 const account = (request, response) => {
     response.render('homePage',{
@@ -86,7 +81,6 @@ const logOut = (request, response) => {
     response.redirect('/')
 }
 
-//add new function
 const addNew = (req,res) =>{
     questionModel.find()
     .then(result => {res.render('addQuestion', {users : result})})
@@ -99,6 +93,6 @@ module.exports = {
     logIn,
     signUp,
     logOut,
-    startPage
+    startPage,
     addNew,
 }
