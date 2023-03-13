@@ -1,15 +1,15 @@
+
 const userModel = require("../models/userModel");
 const questionModel = require('../models/questionModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 
 const account = (request, response) => {
     response.render('index',{
         error: null,
     })
 }
-//log in function
+
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -37,7 +37,7 @@ const logIn = async (req, res) => {
 
 }          
 
-// sign up function
+
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
     if (existUser){
@@ -85,6 +85,7 @@ const addNew = (req,res) =>{
 
 module.exports = {
     account,
+    logIn,
     logIn,
     signUp,
     logOut,
