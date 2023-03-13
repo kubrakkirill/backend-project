@@ -4,12 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const account = (request, response) => {
-    response.render('index',{
-        error: null,
-    })
-}
-
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -26,12 +20,14 @@ const logIn = async (req, res) => {
             if (!correctPass) {
                 res.render('index',{
                     error: 'password is not correct'
-            })
-        }else{
-            redirect('/homePage')
+                })
+            }else{
+                let newToken = await jwt.sign({user}, 'user token')
+                res.cookie('jwt', newToken)
+                redirect('/homePage')
+            }
         }
     }
-  }
 }
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
