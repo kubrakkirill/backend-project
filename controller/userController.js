@@ -10,6 +10,11 @@ const account = (request, response) => {
     })
 }
 
+const startPage = (request, response) => {
+    response.render('index',{
+        error: null,
+    })
+}
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -30,7 +35,8 @@ const logIn = async (req, res) => {
             } else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                res.render('homePage')
+                res.render('homepage')
+
             }
         }
     }
@@ -61,7 +67,7 @@ const signUp = async (request, response) => {
             .then ( async () => {
                 let newToken = await jwt.sign({newUser}, 'Token')
                 response.cookie('jwt', newToken, {httpOnly: true})
-                response.render('homePage')
+                response.redirect('/homepage')
             })
             .catch ( error => {
                 throw error
@@ -86,8 +92,8 @@ const addNew = (req,res) =>{
 module.exports = {
     account,
     logIn,
-    logIn,
     signUp,
     logOut,
+    startPage,
     addNew,
 }
