@@ -4,12 +4,25 @@ const questionModel = require('../models/questionModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const account = (request, response) => {
+
+const homePage = (request, response) => {
+    questionModel.findOne()
+        .then(result => {
+            response.render('homePage', {
+                error: null,
+                question: result,
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+const startPage = (request, response) => {
     response.render('index',{
         error: null,
     })
 }
-
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -30,7 +43,8 @@ const logIn = async (req, res) => {
             } else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                res.render('homePage')
+                res.redirect('/homepage')
+
             }
         }
     }
@@ -61,7 +75,7 @@ const signUp = async (request, response) => {
             .then ( async () => {
                 let newToken = await jwt.sign({newUser}, 'Token')
                 response.cookie('jwt', newToken, {httpOnly: true})
-                response.render('homePage')
+                response.redirect('/homepage')
             })
             .catch ( error => {
                 throw error
@@ -75,19 +89,29 @@ const logOut = (request, response) => {
     response.redirect('/')
 }
 
-//add new function
 const addNew = (req,res) =>{
     questionModel.find()
     .then(result => {res.render('addQuestion', {users : result})})
     .catch(err => console.log(err))
     
 };
+const addQuestion = (request, response) => {
+    let newQuestion = new questionModel(request.body);
+    newQuestion.save()
+        .then(() => {
+            response.redirect('homepage')
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
 
 module.exports = {
-    account,
-    logIn,
+    homePage,
     logIn,
     signUp,
     logOut,
+    startPage,
     addNew,
+    addQuestion,
 }
