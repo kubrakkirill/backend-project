@@ -1,15 +1,8 @@
-
+const {request, response} = require("express");
 const userModel = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { use } = require("../config/route");
-const { render } = require("ejs");
 
-const account = (request, response) => {
-    response.render('index',{
-        error: null,
-    })
-}
 
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
@@ -31,7 +24,7 @@ const logIn = async (req, res) => {
             }else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                render('homePage')
+                redirect('/homePage')
             }
         }
     }
@@ -74,6 +67,7 @@ const logOut = (request, response) => {
 
 module.exports = {
     account,
+    logIn,
     logIn,
     signUp,
     logOut
