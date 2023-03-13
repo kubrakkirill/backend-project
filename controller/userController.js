@@ -5,11 +5,19 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const account = (request, response) => {
-    response.render('homePage',{
-        error: null,
-    })
+const homePage = (request, response) => {
+    questionModel.findOne()
+        .then(result => {
+            response.render('homePage', {
+                error: null,
+                question: result,
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
+
 const startPage = (request, response) => {
     response.render('index',{
         error: null,
@@ -87,12 +95,23 @@ const addNew = (req,res) =>{
     .catch(err => console.log(err))
     
 };
+const addQuestion = (request, response) => {
+    let newQuestion = new questionModel(request.body);
+    newQuestion.save()
+        .then(() => {
+            response.redirect('homepage')
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
 
 module.exports = {
-    account,
+    homePage,
     logIn,
     signUp,
     logOut,
     startPage,
     addNew,
+    addQuestion,
 }

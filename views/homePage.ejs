@@ -13,5 +13,15 @@
 <form action="/addQuestion" method="post">
     <button>Add Question</button>
 </form>
+<div>
+    <ul>
+        <% for (let i=0;i<question.length;i++){%>
+        <li><%=question.title%>
+            <br>
+            <%=question.description%>
+        </li>
+        <%}%>
+    </ul>
+</div>
 </body>
 </html>

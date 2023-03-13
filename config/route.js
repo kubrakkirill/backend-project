@@ -6,11 +6,11 @@ const middleware = require('../middleware/auth')
 route.get('/', userController.startPage);
 
 route.get('/logOut', userController.logOut);
-route.get('/homepage', userController.account);
+route.get('/homepage', userController.homePage);
 
 route.post('/signUp', userController.signUp);
 route.post('/log-in', userController.logIn)
-
-route.get('/addQuestion' , userController.addNew)
+route.post('/add-new', userController.addQuestion)
+route.post('/addQuestion' , userController.addNew)
 
 module.exports = route;

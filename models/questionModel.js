@@ -5,12 +5,12 @@ console.log(dateType);
 
 const questionSchema = mongoose.Schema({
 
-    question :{
+    title :{
         type: String,
         required : true,
     },
 
-    answer:{
+    description:{
         type: String,
         required : true,
     },
@@ -22,4 +22,4 @@ const questionSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('questions', questionSchema);
+module.exports = mongoose.model('question', questionSchema);
