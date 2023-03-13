@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 const homePage = (request, response) => {
-    questionModel.findOne()
+    questionModel.find()
         .then(result => {
             response.render('homePage', {
                 error: null,
@@ -65,21 +65,21 @@ const signUp = async (request, response) => {
             })
         } else {
             var hashedPassword = await bcrypt.hashSync(request.body.password, 12)
+            let newUserObj = {
+                ...request.body,
+                password: hashedPassword
+            }
+            let newUser = new userModel(newUserObj)
+            newUser.save()
+                .then ( async () => {
+                    let newToken = await jwt.sign({newUser}, 'Token')
+                    response.cookie('jwt', newToken, {httpOnly: true})
+                    response.redirect('/homepage')
+                })
+                .catch ( error => {
+                    throw error
+                })
         }
-        let newUserObj = {
-            ...request.body,
-            password: hashedPassword
-        }
-        let newUser = new userModel(newUserObj)
-        newUser.save()
-            .then ( async () => {
-                let newToken = await jwt.sign({newUser}, 'Token')
-                response.cookie('jwt', newToken, {httpOnly: true})
-                response.redirect('/homepage')
-            })
-            .catch ( error => {
-                throw error
-            })
     }
 }
 

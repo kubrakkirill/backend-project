@@ -17,7 +17,7 @@ route.get('/homepage', userController.homePage);
 route.post('/homepage', userController.signUp);
 
 //log-in function
-route.post('/log-in',middleware.checkLogIn, userController.logIn)
+route.post('/log-in', userController.logIn)
 
 //add new file route functions
 route.get('/addQuestion' , userController.addNew)
