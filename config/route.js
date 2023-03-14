@@ -27,5 +27,15 @@ route.post('/log-in', userController.logIn)
 route.post('/add-new', userController.addQuestion)
 route.post('/addQuestion' , userController.addNew)
 
+//get comment page
+route.get('/question/:id',userController.commentPage);
+
+// delete question
+route.post('/delete-question/:id', userController.deleteQuestion);
+
+//route editing
+route.get('/edit/:id', userController.editQuestion);
+route.post('/update-question/:id', userController.updateQuestion)
+
 
 module.exports = route;

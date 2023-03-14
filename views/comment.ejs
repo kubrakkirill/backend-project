@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=question.title%></title>
+</head>
+<body>
+    <div class="container">
+        <div id="question">
+            <h2 class="question-title"><%=question.title%></h2>
+            <p class="description"><%=question.description%></p>
+        </div>
+
+        <div class="btns">
+            <a href="/edit/<%=question._id %>" class="edit">Edit</a>                   
+            <form action="/delete-question/<%= question._id %>" method="post">
+                <button>Delete</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
