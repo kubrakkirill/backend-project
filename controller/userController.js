@@ -1,6 +1,7 @@
 
 const userModel = require("../models/userModel");
 const questionModel = require('../models/questionModel')
+const commentModel = require('../models/commentModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -146,6 +147,7 @@ const updateQuestion = (req, res) =>{
 }
 
 
+
 module.exports = {
     homePage,
     logIn,
@@ -158,4 +160,5 @@ module.exports = {
     deleteQuestion,
     editQuestion,
     updateQuestion,
+    
 }
