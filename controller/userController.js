@@ -1,6 +1,7 @@
 
 const userModel = require("../models/userModel");
 const questionModel = require('../models/questionModel')
+const commentModel = require('../models/commentModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -106,6 +107,47 @@ const addQuestion = (request, response) => {
         })
 }
 
+
+const commentPage = (req, res) => {
+    questionModel.findById(req.params.id)
+    .then(result => {
+        res.render('comment' , {
+            question: result,
+        })
+    })
+    .catch(err => {console.log(err)})
+}
+
+//delete function
+const deleteQuestion = (req, res) => {
+    questionModel.findByIdAndDelete(req.params.id)
+    .then(()=> {res.redirect('/homePage')})
+    .catch(err =>{ console.log(err)});    
+}
+    
+//edit functions
+const editQuestion =(req, res) =>{
+    questionModel.findById(req.params.id)
+    .then(result => {
+        res.render('edit' , {
+            question: result,
+        })
+    })
+    .catch(err => console.log(err))
+}
+
+const updateQuestion = (req, res) =>{
+    questionModel.findByIdAndUpdate(req.params.id, req.body)
+   .then(result => {
+    res.render('comment', {
+        question: result,
+    })
+   })
+   .catch(err => console.log(err))
+}
+
+
+
 module.exports = {
     homePage,
     logIn,
@@ -114,4 +156,9 @@ module.exports = {
     startPage,
     addNew,
     addQuestion,
+    commentPage,
+    deleteQuestion,
+    editQuestion,
+    updateQuestion,
+    
 }

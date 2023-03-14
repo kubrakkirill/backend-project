@@ -7,12 +7,13 @@
     <title>Edit</title>
 </head>
 <body>
-    <form action="">
-        <h1></h1>
-        <p></p>    
-
-        <button>Save</button>
-        <button>Cancel</button>
-    </form>
+    <form action="/update-question/<%=question._id %>" method="post" id="form">
+        <div class="article-info">
+            <input type="text" name="title" id="question-title" value="<%= question.title %>">
+            <textarea name="questionDescription" id="question-description"><%= question.description %></textarea>
+        </div>
+        
+            <button id="sub-btn">Submit</button>
+        </form>       
 </body>
 </html>
