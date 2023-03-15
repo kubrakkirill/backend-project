@@ -10,7 +10,7 @@
 <body>
 <a href="/logOut">Log Out</a>
 <h1>Matrix Master Community</h1>
-<form action="/addQuestion" method="post">
+<form action="/addQuestion/<%=userId%>" method="post">
     <button>Add Question</button>
 </form>
 <div>
@@ -19,6 +19,10 @@
         <li><%=question[i].title%>
             <br>
             <%=question[i].description%>
+            <br>
+            <%=question[i].created_at%>
+            <br>
+            <%=question[i].user%>
         </li>
         <a href="/question/<%=question[i]._id %>">See More...</a> 
         <%}%>

@@ -13,12 +13,13 @@
             <a href="/homePage">Home</a>           
         </nav>
     </div>
-    
+    <h2><%=user._id%></h2>
     <h1>Add Question</h1>
-    <form action="/add-new" method="post">
+    <form action="/add-new/<%=user._id%>" method="post">
+        <input type="hidden" name="user" value="<%=user._id%>">
         <input type="text" name="title" id="title" placeholder="write question here?">
         <br>
-        <textarea name="description" id="description" placeholder="write your answer here"></textarea>
+        <textarea name="description" id="description" placeholder="write your description here"></textarea>
         <br>
         <button>Submit</button>
     </form>

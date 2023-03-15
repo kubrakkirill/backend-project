@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const loggedInAlready = (req, res ,next) =>{
     const token = req.header('cookie');
-
+    console.log(token)
     if (token) {
         next()
     }else{

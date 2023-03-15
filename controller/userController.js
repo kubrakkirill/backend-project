@@ -6,17 +6,49 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+// const homePage = (request, response) => {
+//     questionModel.find()
+//         .then(result => {
+//             response.render('homePage', {
+//                 error: null,
+//                 question: result,
+//             })
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// }
 const homePage = (request, response) => {
     questionModel.find()
-        .then(result => {
-            response.render('homePage', {
-                error: null,
-                question: result,                
-            })           
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        .populate('user')
+                .then(question=>{
+                    console.log(question)
+                    response.render('homePage', {
+                        error: null,
+                        user: null,
+                        question: question,
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+    // userModel.findById(request.params.id)
+    //     .then(result => {
+    //         questionModel.find()
+    //             .then(question=>{
+    //                 response.render('homePage', {
+    //                     error: null,
+    //                     user: result,
+    //                     question: question,
+    //                 })
+    //             })
+    //             .catch(error => {
+    //                 console.log(error)
+    //             })
+    //     })
+    //     .catch(error => {
+    //         console.log(error)
+    //     })
 }
 
 
@@ -45,10 +77,8 @@ const logIn = async (req, res) => {
             } else{
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
-                res.redirect('/homepage')
-                res.locals.name = 'user';      
-                console.log(res.locals);
-
+                res.locals.userId = user._id;
+                res.redirect(`/homepage/${user._id}`)
             }
         }
     }
@@ -78,7 +108,7 @@ const signUp = async (request, response) => {
                 .then ( async () => {
                     let newToken = await jwt.sign({newUser}, 'Token')
                     response.cookie('jwt', newToken, {httpOnly: true})
-                    response.redirect('/homepage')
+                    response.redirect(`/homepage/${newUser._id}`)
                 })
                 .catch ( error => {
                     throw error
@@ -94,20 +124,41 @@ const logOut = (request, response) => {
 }
 
 const addNew = (req,res) =>{
-    questionModel.find()
-    .then(result => {res.render('addQuestion', {users : result})})
+    userModel.findById(req.params.id)
+        .then(result => {
+            res.render('addQuestion', {user : result})
+        })
     .catch(err => console.log(err))
-    
+
 };
 const addQuestion = (request, response) => {
     let newQuestion = new questionModel(request.body);
-    newQuestion.save()
-        .then(() => {
-            response.redirect('homepage')
-        })
-        .catch(error => {
-            console.log(error)
-        }) 
+            newQuestion.save()
+                .then(() => {
+                    homePage(request, response)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+    // userModel.findById(request.params.id)
+    //     .then(result=>{
+    //         let questionObj ={
+    //             ...request.body,
+    //             user: request.params.id
+    //         }
+    //         let newQuestion = new questionModel(questionObj);
+    //         newQuestion.save()
+    //             .then(() => {
+    //                 console.log(request)
+    //                 homePage(request, response)
+    //             })
+    //             .catch(error => {
+    //                 console.log(error)
+    //             })
+    //     })
+    //     .catch(error => {
+    //         console.log(error)
+    //     })
 }
 
 const commentPage = (req, res) => {
