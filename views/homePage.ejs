@@ -8,11 +8,10 @@
     <title>Matrix Master Community</title>
 </head>
 <body>
+    <h1>Hello, <%= user.userName %></h1>
 <a href="/logOut">Log Out</a>
 <h1>Matrix Master Community</h1>
-<form action="/addQuestion/<%=userId%>" method="post">
-    <button>Add Question</button>
-</form>
+<a href="/addQuestion/<%= user._id %>">Add a new question</a>
 <div>
     <ul>
         <% for (let i=0;i<question.length;i++){%>
@@ -22,7 +21,7 @@
             <br>
             <%=question[i].created_at%>
             <br>
-            <%=question[i].user%>
+            <%=question[i].user.email%>
         </li>
         <a href="/question/<%=question[i]._id %>">See More...</a> 
         <%}%>

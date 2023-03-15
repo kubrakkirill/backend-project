@@ -8,7 +8,7 @@ const middleware = require('../middleware/auth')
 
 //log-in function
 
-route.get('/', middleware.loggedInAlready, userController.logIn);
+route.get('/', middleware.loggedInAlready, userController.homePage);
 
 route.get('/logOut', userController.logOut);
 route.get('/homepage/:id', userController.homePage);
@@ -16,6 +16,7 @@ route.get('/homepage/:id', userController.homePage);
 route.get('/homepage', userController.homePage);
 
 //log-in function
+route.get('/login', middleware.checkLogIn, userController.loginPage)
 route.post('/log-in', userController.logIn)
 
 //add new file route functions
@@ -24,7 +25,7 @@ route.post('/log-in', userController.logIn)
 route.post('/signUp', userController.signUp);
 route.post('/log-in', userController.logIn)
 route.post('/add-new/:id', userController.addQuestion)
-route.post('/addQuestion/:id' , userController.addNew)
+route.get('/addQuestion/:id' , userController.addNew)
 
 //get comment page
 route.get('/question/:id',userController.commentPage );

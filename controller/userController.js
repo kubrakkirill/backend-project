@@ -21,17 +21,15 @@ const jwt = require('jsonwebtoken');
 const homePage = (request, response) => {
     questionModel.find()
         .populate('user')
-                .then(question=>{
-                    console.log(question)
-                    response.render('homePage', {
-                        error: null,
-                        user: null,
-                        question: question,
-                    })
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+        .then(question=>{
+            response.render('homePage', {
+                error: null,
+                question: question,
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
     // userModel.findById(request.params.id)
     //     .then(result => {
     //         questionModel.find()
@@ -57,6 +55,12 @@ const startPage = (request, response) => {
         error: null,
     })
 }
+
+const loginPage = (req, res)=> {
+    res.render('index',{
+        error: ''
+    })
+}
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -76,9 +80,9 @@ const logIn = async (req, res) => {
                 })
             } else{
                 let newToken = await jwt.sign({user}, 'user token')
-                res.cookie('jwt', newToken)
-                res.locals.userId = user._id;
-                res.redirect(`/homepage/${user._id}`)
+                res.cookie('jwt', newToken, { httpOnly: true })
+                res.redirect(`/`)
+                // res.redirect(`/homepage/${user._id}`)
             }
         }
     }
@@ -103,12 +107,12 @@ const signUp = async (request, response) => {
                 ...request.body,
                 password: hashedPassword
             }
-            let newUser = new userModel(newUserObj)
-            newUser.save()
+            let user = new userModel(newUserObj)
+            user.save()
                 .then ( async () => {
-                    let newToken = await jwt.sign({newUser}, 'Token')
-                    response.cookie('jwt', newToken, {httpOnly: true})
-                    response.redirect(`/homepage/${newUser._id}`)
+                    let newToken = await jwt.sign({user}, 'user token')
+                    response.cookie('jwt', newToken, { httpOnly: true })
+                    response.redirect(`/`)
                 })
                 .catch ( error => {
                     throw error
@@ -124,18 +128,17 @@ const logOut = (request, response) => {
 }
 
 const addNew = (req,res) =>{
-    userModel.findById(req.params.id)
-        .then(result => {
-            res.render('addQuestion', {user : result})
-        })
-    .catch(err => console.log(err))
-
+    res.render('addQuestion', {
+        user : req.params.id
+    })
 };
+
 const addQuestion = (request, response) => {
     let newQuestion = new questionModel(request.body);
             newQuestion.save()
                 .then(() => {
-                    homePage(request, response)
+                    // homePage(request, response)
+                    response.redirect('/')
                 })
                 .catch(error => {
                     console.log(error)
@@ -174,7 +177,9 @@ const commentPage = (req, res) => {
 //delete function
 const deleteQuestion = (req, res) => {
     questionModel.findByIdAndDelete(req.params.id)
-    .then(()=> {res.redirect('/homePage')})
+    .then(()=> {
+        res.redirect('/')
+    })
     .catch(err =>{ console.log(err)});    
 }
     
@@ -237,4 +242,5 @@ module.exports = {
     updateQuestion, 
     // getComment,   
     addComment,
+    loginPage
 }

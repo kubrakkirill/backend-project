@@ -2,11 +2,17 @@ const jwt = require('jsonwebtoken');
 
 const loggedInAlready = (req, res ,next) =>{
     const token = req.header('cookie');
-    console.log(token)
     if (token) {
+        let userToken = token.split('jwt=')[1];
+        jwt.verify(userToken, 'user token', async (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+            res.locals.user = result.user ? result.user : result.newUser;
+        })
         next()
     }else{
-        res.redirect('/')
+        res.redirect('/login')
     }
 }
 
