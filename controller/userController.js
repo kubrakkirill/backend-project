@@ -166,12 +166,18 @@ const addQuestion = (request, response) => {
 
 const commentPage = (req, res) => {
     questionModel.findById(req.params.id)
-    .then(result => {
-        res.render('comment' , {
-            question: result,            
-        })        
-    })
-    .catch(err => {console.log(err)})
+        .then(result => {
+            commentModel.find({question: result._id })
+                .populate('user', 'email userName')
+                .then( ( comments ) => {
+                    res.render('comment' , {
+                        question: result,  
+                        comments: comments         
+                    }) 
+                })
+                .catch(err => {console.log(err)})       
+        })
+        .catch(err => {console.log(err)})
 }
 
 //delete function
@@ -186,22 +192,20 @@ const deleteQuestion = (req, res) => {
 //edit functions
 const editQuestion =(req, res) =>{
     questionModel.findById(req.params.id)
-    .then(result => {
-        res.render('edit' , {
-            question: result,
+        .then(result => {
+            res.render('edit' , {
+                question: result,
+            })
         })
-    })
-    .catch(err => console.log(err))
+        .catch(err => console.log(err))
 }
 
 const updateQuestion = (req, res) =>{
     questionModel.findByIdAndUpdate(req.params.id, req.body)
-   .then(result => {
-    res.render('comment', {
-        question: result,
-    })
-   })
-   .catch(err => console.log(err))
+        .then(result => {
+            res.redirect(`/question/${req.params.id}`)
+        })
+        .catch(err => console.log(err))
 }
 
 //add comment function 
@@ -217,10 +221,24 @@ const updateQuestion = (req, res) =>{
 // }
 
 const addComment = (req, res) => {
-    let newComment = new commentModel(req.body);
+    let userToken = req.cookies.jwt;
+    let userId;
+    let questionId = req.params.questionId
+    jwt.verify(userToken, 'user token', async (err, result) => {
+        if(err) {
+            console.log(err)
+        }
+        userId = result.user._id 
+    })
+    let commentObj ={
+        ...req.body,
+        user: userId,
+        question: questionId
+    }
+    let newComment = new commentModel(commentObj);
     newComment.save()
         .then(() => {
-            res.redirect('/comment')
+            res.redirect(`/question/${questionId}`)
         })
         .catch(error => {
             console.log(error)

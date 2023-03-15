@@ -9,7 +9,7 @@
   <body>
     <div class="link-container">
       <nav class="links">
-        <a href="/homePage">Home</a>
+        <a href="/">Home</a>
       </nav>
     </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div class="comment-container">
-      <form action="/add-comment" method="post">
+      <form action="/add-comment/<%=question._id %>" method="post">
         <label for="comment">Add A Comment</label>
         <textarea name="txt" id="comment-text" ></textarea>
         <button>Comment</button>
@@ -37,8 +37,11 @@
 
     <div>
         <ul>
-            <% for (let i=0;i<question.length;i++){%>
-            <p><%=question[i].txt%></p>           
+            <% for (let i=0;i<comments.length;i++){%>
+              <p><%= comments[i].txt %> ....... <%= comments[i].user._id %></p>   
+              <% if(user._id == comments[i].user._id){ %>
+                  <button>Delete comment</button>
+              <% }  %>     
             <%}%>
         </ul>
     </div>
