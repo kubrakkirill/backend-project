@@ -7,6 +7,12 @@
     <title>Edit</title>
 </head>
 <body>
+    <div class="link-container">
+        <nav class="links">
+            <a href="/homePage">Home</a>           
+        </nav>
+    </div>
+
     <form action="/update-question/<%=question._id %>" method="post" id="form">
         <div class="article-info">
             <input type="text" name="title" id="question-title" value="<%= question.title %>">

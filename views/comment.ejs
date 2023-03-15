@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=question.title%></title>
-</head>
-<body>
-    <div class="container">
-        <div id="question">
-            <h2 class="question-title"><%=question.title%></h2>
-            <p class="description"><%=question.description%></p>
-        </div>
-
-        <div class="btns">
-            <a href="/edit/<%=question._id %>" class="edit">Edit</a>                   
-            <form action="/delete-question/<%= question._id %>" method="post">
-                <button>Delete</button>
-            </form>
-        </div>
+  </head>
+  <body>
+    <div class="link-container">
+      <nav class="links">
+        <a href="/homePage">Home</a>
+      </nav>
     </div>
-  
-</body>
+
+    <div class="container">
+      <div id="question">
+        <h2 class="question-title"><%=question.title%></h2>
+        <p class="description"><%=question.description%></p>
+      </div>
+
+      <div class="btns">
+        <a href="/edit/<%=question._id %>" class="edit">Edit</a>
+        <form action="/delete-question/<%= question._id %>" method="post">
+          <button>Delete</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="comment-container">
+      <form action="/add-comment" method="post">
+        <label for="comment">Add A Comment</label>
+        <textarea name="txt" id="comment-text" ></textarea>
+        <button>Comment</button>
+      </form>
+    </div>
+
+    <div>
+        <ul>
+            <% for (let i=0;i<question.length;i++){%>
+            <p><%=question[i].txt%></p>           
+            <%}%>
+        </ul>
+    </div>
+  </body>
 </html>
