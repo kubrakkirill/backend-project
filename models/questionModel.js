@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const moment = require('moment')
 const dateType = new Date().toLocaleString();
 console.log(dateType);
 
@@ -17,9 +17,12 @@ const questionSchema = mongoose.Schema({
 
     created_at: {
         type: Date,
-        default: dateType,
+        default: Date.now,
+        get: function (createdAt) {
+            return moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        }
     },
 
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('question', questionSchema);
