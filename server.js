@@ -2,10 +2,12 @@ const express = require('express');
 require('./config/mongoose');
 const app = express();
 const route = require('./config/route');
+const cookieParser = require("cookie-parser");
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(route);
 

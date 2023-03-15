@@ -10,15 +10,16 @@
 
     <div class="link-container">
         <nav class="links">
-            <a href="/homePage">Home</a>           
+            <a href="/">Home</a>           
         </nav>
     </div>
     
     <h1>Add Question</h1>
-    <form action="/add-new" method="post">
+    <form action="/add-new/<%=user%>" method="post">
+        <input type="hidden" name="user" value="<%=user%>">
         <input type="text" name="title" id="title" placeholder="write question here?">
         <br>
-        <textarea name="description" id="description" placeholder="write your answer here"></textarea>
+        <textarea name="description" id="description" placeholder="write your description here"></textarea>
         <br>
         <button>Submit</button>
     </form>
