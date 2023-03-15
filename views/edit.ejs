@@ -16,7 +16,7 @@
     <form action="/update-question/<%=question._id %>" method="post" id="form">
         <div class="article-info">
             <input type="text" name="title" id="question-title" value="<%= question.title %>">
-            <textarea name="questionDescription" id="question-description"><%= question.description %></textarea>
+            <textarea name="description" id="question-description"><%= question.description %></textarea>
         </div>
         
             <button id="sub-btn">Submit</button>

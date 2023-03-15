@@ -2,7 +2,14 @@ const mongoose = require('mongoose');
 const moment = require("moment");
 
 const commentSchema = mongoose.Schema({
-
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    question: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "question"
+    },
     txt: {
         type : String,
         required : true,
