@@ -11,13 +11,14 @@ const homePage = (request, response) => {
         .then(result => {
             response.render('homePage', {
                 error: null,
-                question: result,
-            })
+                question: result,                
+            })           
         })
         .catch(error => {
             console.log(error)
         })
 }
+
 
 const startPage = (request, response) => {
     response.render('index',{
@@ -45,6 +46,8 @@ const logIn = async (req, res) => {
                 let newToken = await jwt.sign({user}, 'user token')
                 res.cookie('jwt', newToken)
                 res.redirect('/homepage')
+                res.locals.name = 'user';      
+                console.log(res.locals);
 
             }
         }
@@ -104,16 +107,15 @@ const addQuestion = (request, response) => {
         })
         .catch(error => {
             console.log(error)
-        })
+        }) 
 }
-
 
 const commentPage = (req, res) => {
     questionModel.findById(req.params.id)
     .then(result => {
         res.render('comment' , {
-            question: result,
-        })
+            question: result,            
+        })        
     })
     .catch(err => {console.log(err)})
 }
@@ -146,6 +148,28 @@ const updateQuestion = (req, res) =>{
    .catch(err => console.log(err))
 }
 
+//add comment function 
+// const getComment = (request, response) =>{
+//     commentModel.find()
+//     .then(comments =>{
+//         response.render('comment',{
+//             comment: comments,
+//             error: null,
+//         })
+//     })
+//     .catch(err => console.log(err))
+// }
+
+const addComment = (req, res) => {
+    let newComment = new commentModel(req.body);
+    newComment.save()
+        .then(() => {
+            res.redirect('/comment')
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
 
 
 module.exports = {
@@ -159,6 +183,7 @@ module.exports = {
     commentPage,
     deleteQuestion,
     editQuestion,
-    updateQuestion,
-    
+    updateQuestion, 
+    // getComment,   
+    addComment,
 }

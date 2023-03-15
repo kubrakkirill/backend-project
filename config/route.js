@@ -28,7 +28,7 @@ route.post('/add-new', userController.addQuestion)
 route.post('/addQuestion' , userController.addNew)
 
 //get comment page
-route.get('/question/:id',userController.commentPage);
+route.get('/question/:id',userController.commentPage );
 
 // delete question
 route.post('/delete-question/:id', userController.deleteQuestion);
@@ -37,5 +37,6 @@ route.post('/delete-question/:id', userController.deleteQuestion);
 route.get('/edit/:id', userController.editQuestion);
 route.post('/update-question/:id', userController.updateQuestion)
 
-
+//add a comment function
+route.post('/add-comment', userController.addComment)
 module.exports = route;
