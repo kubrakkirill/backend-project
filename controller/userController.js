@@ -124,6 +124,7 @@ const signUp = async (request, response) => {
 
 const logOut = (request, response) => {
     response.clearCookie('jwt');
+    response.clearCookie('user');
     response.redirect('/')
 }
 
