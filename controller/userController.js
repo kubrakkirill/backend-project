@@ -136,9 +136,9 @@ const addQuestion = (request, response) => {
 
 const commentPage = (req, res) => {
     questionModel.findById(req.params.id)
+        .populate('user')
         .then(result => {
             commentModel.find({question: result._id })
-                .populate('user', 'email userName')
                 .then( ( comments ) => {
                     res.render('comment' , {
                         question: result,  
