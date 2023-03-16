@@ -5,23 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Question</title>
+     <!-- icon -->
+     <link rel="shortcut icon" href="/public/matrix.png">
+     <!-- style file -->
+     <link rel="stylesheet" href="/public/style.css">    
+      <!-- font awesome  -->
+      <script src="https://kit.fontawesome.com/1284c12520.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <div class="link-container">
-        <nav class="links">
-            <a href="/">Home</a>           
-        </nav>
-    </div>
+    <header>
+        <h1>Welcome to Matrix Master Community</h1>
+    </header>
+  
+        <div class="home">
+          <a href="/"><i class="fa-solid fa-house"></i></a>
+        </div>
     
-    <h1>Add Question</h1>
-    <form action="/add-new/<%=user%>" method="post">
-        <input type="hidden" name="user" value="<%=user%>">
-        <input type="text" name="title" id="title" placeholder="write question here?">
+    <form action="/add-new/<%=user%>" method="post" class="add-form">
+        <input type="hidden" name="user" value="<%=user%>" >
+        <input type="text" name="title" id="title" placeholder="write question here?" class="q-input">
         <br>
-        <textarea name="description" id="description" placeholder="write your description here"></textarea>
+        <textarea name="description" id="description" placeholder="write your description here" class="a-input"></textarea>
         <br>
         <button>Submit</button>
     </form>
+
+    <footer class="ftr">
+        <p>copyright &copy;2023 by <span>Islam & Kyrylo</span></p>
+    </footer>
+    
+    
+     <!-- aos js file from github -->
+     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+     <script>
+       AOS.init();    
+     </script>
+    
+     <!-- start loading section -->
+     <script>   
+    
+        var preloader = document.getElementById("loading");
+        
+        function myLoading() {
+          preloader.style.display ="none";
+        }
+            </script>
 </body>
 </html>

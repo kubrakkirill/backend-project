@@ -20,7 +20,7 @@
     position: fixed;
     width: 100%;
     height: 100vh;
-    background: #fff url(/public/Infinity-1.2s-197px.gif) no-repeat center;
+    background: #fff url(/public/preload.gif) no-repeat center;
     z-index: 99999;
   }
   /* end loading section */
@@ -234,6 +234,13 @@ footer span{
     margin-bottom: 25px;
 }
 
+@media (max-width:767px){
+    .add-question{
+        width: 200px;
+        margin-top: 20px;
+    }
+}
+
 .add-question:hover{
     transform: scale(1.1);
     transition: 1s ease-out;
@@ -243,7 +250,16 @@ footer span{
     margin-left: 45%;
     font-size: 50px;
     color: #fff;
+    margin-top: 5px;
 }
+
+@media (max-width:767px){
+    .add-question i{
+       margin-left: 40%;
+       font-size: 40px;
+    }
+}
+
 
 .add-question a{
     text-align: center;
@@ -263,16 +279,31 @@ footer span{
 .QandA{
     width: 80%;
     margin: 0 auto;
+    display: flex;
+    flex-flow: wrap column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+}
+
+.QandA h2.question-title{
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    
 }
 
 .QandA h2{
-    height: 70px;
+    height: 50px;
     border: 1px dashed var(--main-color);
     border-left: none;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     text-align: center;
-    padding-top: 20px;
-    color: var(--main-color);
+    padding-top: 10px;
+    margin-bottom: -25px;
+    color: #fff;
+    background: var(--main-background);
+    box-shadow: 5px 10px 10px #000;
+
 }
 
 .QandA p{
@@ -281,9 +312,11 @@ footer span{
     line-height: 1.6;
     border: 1px dashed var(--main-color);
     border-right: none;
-    border-radius: 15px;
+    /* border-radius: 15px 15px 0 0; */
     padding: 5px;
-    color: var(--main-color);
+    color: #fff;
+    background: var(--main-background);
+    box-shadow: 5px 10px 10px #000;
 }
 
 .QandA i{
@@ -296,7 +329,7 @@ footer span{
 .QandA a{
     text-decoration: none;
     text-align: right;
-    color: blue;
+    color: var(--yellow-color);
     margin-left: 5px;
 }
 
@@ -306,11 +339,19 @@ footer span{
 
 .QandA p.created-by{
     border: none;
+    border-radius: 0 0 15px 15px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;  
     background-color: #0f0c29;  
     color: #fff;
+    box-shadow: 5px 10px 10px #000;
+}
+
+@media (max-width:767px){
+    .QandA p.created-by, .QandA i{
+        font-size: 14px;
+    }
 }
 
 .QandA i.out{
@@ -378,6 +419,7 @@ footer.ftr p{
     width: 38%;
 }
 
+
 .comment-form label.add{
     color: var(--main-color);
     font-size: 20px;
@@ -394,10 +436,24 @@ footer.ftr p{
     padding: 10px;
 }
 
+@media (max-width:767px){
+    .comment-form textarea.type-here{
+        width: 250px;
+        margin-left: -50px;
+    }
+}
+
 .comment-form button{
     background-color: var(--main-color);
     color: #fff;
     width: 200px;
+}
+
+@media (max-width:767px){
+    .comment-form button{
+        width: 250px;
+        margin-left: -50px;
+    }
 }
 
 .comment-form button:hover{
@@ -444,3 +500,60 @@ footer.ftr p{
     color: #777777;
 }
 /* end comment text */
+
+/* start add question page and edit page*/
+.add-form{
+    margin: 0 auto;
+    width: 50%;
+}
+
+.add-form input.q-input{
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    margin-top: 20px;
+    background-color: var(--main-color);
+}
+
+.add-form input:focus.q-input{
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+}
+
+.add-form input.q-input::placeholder{
+    color: #fff;
+}
+
+.add-form textarea.a-input{
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    padding: 5px;
+    resize: none;
+    background-color: var(--main-color);
+}
+
+.add-form textarea:focus.a-input{
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+}
+
+.add-form textarea.a-input::placeholder{
+    color: #fff;
+}
+
+.add-form button{
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: bold;
+}
+
+.add-form input.clr, .add-form textarea.clr{
+    color: #fff;
+}
+
+.add-form input:focus.clr, .add-form textarea:focus.clr{
+    color: var(--main-color);
+    background-color: transparent;
+}
+/* end add question page and edit page*/
