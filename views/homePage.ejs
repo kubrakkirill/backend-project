@@ -38,7 +38,7 @@
         <% for (let i=0;i<question.length;i++){%>
             <h2><%=question[i].title%></h2>
             <br>            
-            <p><i class="fa-solid fa-message"></i><%=question[i].description%> <a href="/question/<%=question[i]._id %>">See More...</a></p>            
+            <p><i class="fa-solid fa-message"></i><%=question[i].description.slice(0, 110)%> <a href="/question/<%=question[i]._id %>">See More...</a></p>
             <p class="created-by"><i class="fa-solid fa-user out"></i>Add By<span> <%=question[i].user.userName%></span> at <%=question[i].created_at%></p>             
             <br>                  
             
