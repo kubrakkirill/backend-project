@@ -59,33 +59,14 @@
             <% for (let i=0;i<comments.length;i++){%>
               <p><span>@<%= comments[i].user.userName %></span> <%= comments[i].txt %></p>   
               <% if(user._id == comments[i].user._id){ %>
-                <form action="/delete-comment/<%= comments._id %>" method="post">
+                <form action="/delete-comment/<%= comments[i]._id %>" method="post">
                   <button><i class="fa-solid fa-trash"></i></button>
                 </form>
               <% }  %>     
-            <%}%>        
+            <%}%>
+        
     </div>
+
   </div>
-
-  <footer class="ftr">
-    <p>copyright &copy;2023 by <span>Islam & Kyrylo</span></p>
-</footer>
-
-
- <!-- aos js file from github -->
- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
- <script>
-   AOS.init();    
- </script>
-
- <!-- start loading section -->
- <script>   
-
-    var preloader = document.getElementById("loading");
-    
-    function myLoading() {
-      preloader.style.display ="none";
-    }
-        </script>
   </body>
 </html>
