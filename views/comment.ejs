@@ -5,45 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=question.title%></title>
-  </head>
+    <!-- icon -->
+    <link rel="shortcut icon" href="/public/matrix.png">
+    <!-- style file -->
+    <link rel="stylesheet" href="/public/style.css">    
+     <!-- font awesome  -->
+     <script src="https://kit.fontawesome.com/1284c12520.js" crossorigin="anonymous"></script>
   <body>
-    <div class="link-container">
-      <nav class="links">
-        <a href="/">Home</a>
-      </nav>
-    </div>
 
-    <div class="container">
+    <header>
+      <h1>Welcome to Matrix Master Community</h1>
+  </header>
+
+      <div class="home">
+        <a href="/"><i class="fa-solid fa-house"></i></a>
+      </div>
+      
+
+  
+
+    <div class="QandA">
       <div id="question">
         <h2 class="question-title"><%=question.title%></h2>
-        <p class="description"><%=question.description%></p>
+        <p class="description"><i class="fa-solid fa-message"></i><%=question.description%></p>
+        <p class="created-by"><i class="fa-solid fa-user out"></i>Add By<span> <%=question.user.userName%></span> at <%=question.created_at%></p>
       </div>
 
+      <% if(user._id == question.user._id){ %>
       <div class="btns">
-        <a href="/edit/<%=question._id %>" class="edit">Edit</a>
+        <a href="/edit/<%=question._id %>" class="edit"><i class="fa-solid fa-file-pen"></i></a>
         <form action="/delete-question/<%= question._id %>" method="post">
-          <button>Delete</button>
+          <button><i class="fa-solid fa-trash"></i></button>
         </form>
       </div>
+      <% }  %>  
     </div>
 
     <div class="comment-container">
-      <form action="/add-comment/<%=question._id %>" method="post">
-        <label for="comment">Add A Comment</label>
-        <textarea name="txt" id="comment-text" ></textarea>
+      <form action="/add-comment/<%=question._id %>" method="post" class="comment-form">
+        <label for="comment" class="add">Add A Comment <i class="fa-solid fa-pen"></i></label>
+        <textarea name="txt" id="comment-text" class="type-here"></textarea>
         <button>Comment</button>
       </form>
     </div>
 
-    <div>
-        <ul>
+    <div class="comment-content">
+        
             <% for (let i=0;i<comments.length;i++){%>
-              <p><%= comments[i].txt %> ....... <%= comments[i].user._id %></p>   
+              <p><span>@<%= comments[i].user.userName %></span> <%= comments[i].txt %></p>   
               <% if(user._id == comments[i].user._id){ %>
-                  <button>Delete comment</button>
+                <form action="/delete-comment/<%= comments[i]._id %>" method="post">
+                  <button><i class="fa-solid fa-trash"></i></button>
+                </form>
               <% }  %>     
             <%}%>
-        </ul>
     </div>
   </body>
 </html>

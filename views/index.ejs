@@ -6,41 +6,69 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log In</title>
+    <!-- icon -->
+    <link rel="shortcut icon" href="/public/matrix.png">
+    <!-- style file -->
+    <link rel="stylesheet" href="/public/style.css">
+
+     <!-- font awesome  -->
+     <script src="https://kit.fontawesome.com/1284c12520.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Welcome to Matrix Master Community</h1>
+    <header>
+        <h1>Welcome to Matrix Master Community</h1>
+    </header>
 
+<section>    
+    <% if (error) { %>
+        <h3 class="result"> <%= error %></h3>
+    <% } %>
 
-<form action="/log-in" method="post">
-    <label for="email">Email</label>
+<div class="main">  	
+  <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="signup">
+<form action="/log-in" method="post" class="logIn">
+    <label for="chk" aria-hidden="true" class="logIn-title">Login</label>
+    <!-- <label for="email">Email</label> -->
     <br>
-    <input type="email" name="email" id="email">
+    <i class="fa-solid fa-user"></i><input type="email" name="email" id="email" class="inpt-style">
     <br>
-    <label for="password">Password</label>
+    <!-- <label for="password">Password</label> -->
     <br>
-    <input type="password" name="password" id="password">
+    <i class="fa-solid fa-lock"></i><input type="password" name="password" id="password" class="inpt-style">
     <br>
     <button>Log In</button>
 </form>
-<form action="/signUp" method="post">
-    <label for="userName">Username</label>
+</div>
+<div class="login">
+<form action="/signUp" method="post" class="signUp">
+    <label for="chk" aria-hidden="true">Sign up</label>
+    <!-- <label for="userName">Username</label> -->
     <br>
-    <input type="text" name="userName" id="userName">
+    <i class="fa-solid fa-users"></i><input type="text" name="userName" id="userName" class="inpt-style">
     <br>
-    <label for="email">Email</label>
+    <!-- <label for="email">Email</label> -->
     <br>
-    <input type="email" name="email" id="email">
+    <i class="fa-solid fa-envelope"></i><input type="email" name="email" id="email" class="inpt-style">
     <br>
-    <label for="password">Password</label>
+    <!-- <label for="password">Password</label> -->
     <br>
-    <input type="password" name="password" id="password">
+    <i class="fa-solid fa-lock"></i><input type="password" name="password" id="password" class="inpt-style">
     <br>    
     <button>Sign Up</button>
 </form>
+</div>
+</div>
 
-<% if (error) { %>
-    <h3 class="result"> <%= error %></h3>
-<% } %>
+<footer>
+    <p>copyright &copy;2023 by <span>Islam & Kyrylo</span></p>
+</footer>
+
+
+</section>
+
+
+
 
 </body>
 </html>
