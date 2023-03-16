@@ -6,26 +6,67 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Matrix Master Community</title>
+    <!-- icon -->
+    <link rel="shortcut icon" href="/public/matrix.png">
+    <!-- style file -->
+    <link rel="stylesheet" href="/public/style.css">    
+     <!-- font awesome  -->
+     <script src="https://kit.fontawesome.com/1284c12520.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <h1>Hello, <%= user.userName %></h1>
-<a href="/logOut">Log Out</a>
-<h1>Matrix Master Community</h1>
-<a href="/addQuestion/<%= user._id %>">Add a new question</a>
-<div>
-    <ul>
-        <% for (let i=0;i<question.length;i++){%>
-        <li><%=question[i].title%>
-            <br>
-            <%=question[i].description%>
-            <br>
-            <%=question[i].created_at%>
-            <br>
-            <%=question[i].user.email%>
-        </li>
-        <a href="/question/<%=question[i]._id %>">See More...</a> 
-        <%}%>
-    </ul>
+<body onload="myLoading()">
+
+     <!-- start loading section -->
+   <div id="loading"></div>
+   <!-- end loading section -->
+   
+   <header>
+    <h1>Welcome to Matrix Master Community</h1>
+</header>
+<div class="container">
+    <div class="user-info">
+        <h2> <i class="fa-solid fa-user out"></i> Hello  <%= user.userName %></h2>
+        <a href="/logOut">Log Out</a>
+    </div>
+   
+<div class="add-question">
+    <i class="fa-solid fa-circle-question"></i>
+    <a href="/addQuestion/<%= user._id %>">Add a new question</a>
 </div>
+
+<div class="QandA">
+    
+        <% for (let i=0;i<question.length;i++){%>
+            <h2><%=question[i].title%></h2>
+            <br>            
+            <p><i class="fa-solid fa-message"></i><%=question[i].description%> <a href="/question/<%=question[i]._id %>">See More...</a></p>            
+            <br>
+            <p class="created-by"><i class="fa-solid fa-user out"></i>Add By<span> <%=question[i].user.userName%></span> at <%=question[i].created_at%></p>             
+            <br>                  
+            
+        <%}%>    
+</div>
+
+</div>
+
+<footer class="ftr">
+    <p>copyright &copy;2023 by <span>Islam & Kyrylo</span></p>
+</footer>
+
+
+ <!-- aos js file from github -->
+ <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+ <script>
+   AOS.init();    
+ </script>
+
+ <!-- start loading section -->
+ <script>   
+
+    var preloader = document.getElementById("loading");
+    
+    function myLoading() {
+      preloader.style.display ="none";
+    }
+        </script>
 </body>
 </html>

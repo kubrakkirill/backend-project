@@ -188,6 +188,14 @@ const deleteQuestion = (req, res) => {
     })
     .catch(err =>{ console.log(err)});    
 }
+
+const deleteComment = (req, res) =>{
+    commentModel.findByIdAndDelete(req.params.id)
+    .then(()=> {
+        res.redirect('/')
+    })
+    .catch(err =>{ console.log(err)}); 
+}
     
 //edit functions
 const editQuestion =(req, res) =>{
@@ -258,7 +266,7 @@ module.exports = {
     deleteQuestion,
     editQuestion,
     updateQuestion, 
-    // getComment,   
+    deleteComment,   
     addComment,
     loginPage
 }

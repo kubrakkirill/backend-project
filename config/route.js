@@ -32,6 +32,7 @@ route.get('/question/:id', middleware.loggedInAlready, userController.commentPag
 
 // delete question
 route.post('/delete-question/:id', userController.deleteQuestion);
+route.post('/delete-comment/:id', userController.deleteComment);
 
 //route editing
 route.get('/edit/:id', userController.editQuestion);
