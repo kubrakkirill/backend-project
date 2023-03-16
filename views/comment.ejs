@@ -33,7 +33,7 @@
       <div id="question">
         <h2 class="question-title"><%=question.title%></h2>
         <p class="description"><i class="fa-solid fa-message"></i><%=question.description%></p>
-        <p class="created-by"><i class="fa-solid fa-user out"></i>Add By<span> <%=question.user.userName%></span> at <%=question.created_at%></p>
+        <p class="created-by"><i class="fa-solid fa-user out"></i>Add By<span> <%=user.userName%></span> at <%=question.created_at%></p>
       </div>
 
       <% if(user._id == question.user._id){ %>
