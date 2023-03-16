@@ -54,14 +54,11 @@
             <% for (let i=0;i<comments.length;i++){%>
               <p><span>@<%= comments[i].user.userName %></span> <%= comments[i].txt %></p>   
               <% if(user._id == comments[i].user._id){ %>
-                <form action="/delete-comment/<%= comments._id %>" method="post">
+                <form action="/delete-comment/<%= comments[i]._id %>" method="post">
                   <button><i class="fa-solid fa-trash"></i></button>
                 </form>
               <% }  %>     
             <%}%>
-        
     </div>
-
-  </div>
   </body>
 </html>

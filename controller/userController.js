@@ -6,20 +6,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-// const homePage = (request, response) => {
-//     questionModel.find()
-//         .then(result => {
-//             response.render('homePage', {
-//                 error: null,
-//                 question: result,
-//             })
-//         })
-//         .catch(error => {
-//             console.log(error)
-//         })
-// }
 const homePage = (request, response) => {
     questionModel.find()
+        .sort({ created_at: '-1' })
         .populate('user')
         .then(question=>{
             response.render('homePage', {
@@ -30,25 +19,7 @@ const homePage = (request, response) => {
         .catch(error => {
             console.log(error)
         })
-    // userModel.findById(request.params.id)
-    //     .then(result => {
-    //         questionModel.find()
-    //             .then(question=>{
-    //                 response.render('homePage', {
-    //                     error: null,
-    //                     user: result,
-    //                     question: question,
-    //                 })
-    //             })
-    //             .catch(error => {
-    //                 console.log(error)
-    //             })
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
 }
-
 
 const startPage = (request, response) => {
     response.render('index',{
@@ -61,6 +32,7 @@ const loginPage = (req, res)=> {
         error: ''
     })
 }
+
 const logIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.render('index',{
@@ -88,7 +60,6 @@ const logIn = async (req, res) => {
     }
 
 }          
-
 
 const signUp = async (request, response) => {
     let existUser = await userModel.findOne({email: request.body.email})
@@ -120,7 +91,6 @@ const signUp = async (request, response) => {
         }
     }
 }
-
 
 const logOut = (request, response) => {
     response.clearCookie('jwt');
@@ -215,18 +185,6 @@ const updateQuestion = (req, res) =>{
         })
         .catch(err => console.log(err))
 }
-
-//add comment function 
-// const getComment = (request, response) =>{
-//     commentModel.find()
-//     .then(comments =>{
-//         response.render('comment',{
-//             comment: comments,
-//             error: null,
-//         })
-//     })
-//     .catch(err => console.log(err))
-// }
 
 const addComment = (req, res) => {
     let userToken = req.cookies.jwt;
