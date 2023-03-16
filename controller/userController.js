@@ -161,8 +161,10 @@ const deleteQuestion = (req, res) => {
 
 const deleteComment = (req, res) =>{
     commentModel.findByIdAndDelete(req.params.id)
-    .then(()=> {
-        res.redirect('/')
+        .populate('question')
+    .then(result => {
+        console.log(result)
+        res.redirect(`/question/${result.question._id}`)
     })
     .catch(err =>{ console.log(err)}); 
 }
